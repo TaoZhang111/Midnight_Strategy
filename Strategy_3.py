@@ -1,4 +1,4 @@
-# strategy3 usually using turns to keep the number.
+# strategy3 usually using turns to keep the number
 class Strategy3:
     #intital the strategy3 and defind keeped number and turns.
     def __init__(self):
