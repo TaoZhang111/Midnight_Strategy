@@ -3,6 +3,7 @@ from Strategy_2 import Strategy2
 from Strategy_3 import Strategy3
 from Strategy_4 import Strategy4
 from Strategy_5 import Strategy5
+from Strategy_4_explore import Strategy4_explore
 from prettytable import PrettyTable
 import matplotlib.pyplot as plt
 import random
@@ -31,6 +32,19 @@ def single(player, num : int = -1):
         simulation = []
     return person1.score()
 
+def single2(player, num, low, high):
+    count = 6
+    simulation = []
+    person1 = player(num, low, high)
+    while len(person1._keep) < 6:
+        for i in range(count):
+            num = random.randint(1, 6)
+            simulation.append(num)
+        # print(simulation)
+        person1.choose(simulation)
+        count = 6-len(person1._keep)
+        simulation = []
+    return person1.score()
 
 
 
@@ -51,6 +65,18 @@ def compare(player1, player2):
         return 1
 
 
+def compare2(player1, player2, low, high):
+    score1 = single(player1)
+    score2 = single2(player2, score1, low, high)
+    
+    if score2 > score1:
+        return 2
+    elif score2 == score1:
+        return 0
+    else:
+        return 1
+
+
 def probability(num, player1, player2):
     l = []
     for i in range(num):
@@ -62,7 +88,7 @@ def probability(num, player1, player2):
 
 
 def find_range(input):
-    return (max(input), min(input))
+    return (min(input), max(input))
 
 
 
@@ -93,10 +119,12 @@ def plot_multiple_lines(lists):
     for i, lst in enumerate(lists):
         plt.plot(x, lst, label=f"Line {i+1}")
     plt.title('Multiple Line Plot')
+    plt.ylim(60, 62)
     plt.xlabel('Index')
     plt.ylabel('Percentage')
     plt.legend()
     plt.show()
+
 
 
 
@@ -193,51 +221,66 @@ def plot_multiple_lines(lists):
 
 
 
-file = open("10thousands", "w")
+file = open("other1", "w")
 
 
 
 
 
-strategy = [Strategy2, Strategy4]
-for i in range(len(strategy)):
-    for j in range(len(strategy)):
+# strategy = [Strategy2, Strategy4]
+# for i in range(len(strategy)):
+#     for j in range(len(strategy)):
+#         if j > i:
+#             # pre = []
+#             post = []
+#             postline = []
+#             for k in range(10):
+#                 l = []
+#                 each = []
+#                 for i in range(100000):
+#                     l.append(compare(strategy[0], strategy[1]))
+#                     each.append(find_percentage(2,l))
+#                 postline.append(each)
+#                 # print(each,file = file)
+#                 # print(each[99999])
+#                 temp = [find_percentage(1,l), find_percentage(2,l)]
+#                 # pre.append(temp[0])
+#                 post.append(temp[1])
+#                 # print(str(temp[1])+ ",",file = file)
+#             # print(pre)
+#             # print(post)
+#             # title = "Strategy"+str(2)+" vs Strategy"+str(4)+ ", Strategy"+str(2)+" Win"
+#             # plot_distribution(pre,title)
+#             # title = "Strategy"+str(2)+" vs Strategy"+str(4)+ ", Strategy"+str(4)+" Win"
+#             # plot_distribution(post,title)
+#             # print(postline, file = file)
+#             plot_multiple_lines(postline)
+
+
+
+
+
+
+
+
+
+
+
+#比较CI
+
+for i in [14,15,16,17,18]:
+    for j in [18,19,20,21,22]:
         if j > i:
-            # pre = []
+            pre = []
             post = []
-            postline = []
             for k in range(10):
                 l = []
-                each = []
-                for i in range(100000):
-                    l.append(compare(strategy[0], strategy[1]))
-                    each.append(find_percentage(2,l))
-                postline.append(each)
-                print(each,file = file)
-                print(each[99999])
+                for i1 in range(100000):
+                    l.append(compare2(Strategy3, Strategy4_explore, i, j))
                 temp = [find_percentage(1,l), find_percentage(2,l)]
-                # pre.append(temp[0])
+                pre.append(temp[0])
                 post.append(temp[1])
-                # print(str(temp[1])+ ",",file = file)
-            # print(pre)
-            # print(post)
-            # title = "Strategy"+str(2)+" vs Strategy"+str(4)+ ", Strategy"+str(2)+" Win"
-            # plot_distribution(pre,title)
-            # title = "Strategy"+str(2)+" vs Strategy"+str(4)+ ", Strategy"+str(4)+" Win"
-            # plot_distribution(post,title)
-            # plot_multiple_lines(postline)
-
-
-
-
-
-
-
-
-
-
-
-
+            print("Strategy2 vs Strategy4, low is "+ str(i)+", high is "+str(j)+": "+str(find_range(post)))
 
 
 
