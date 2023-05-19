@@ -9,12 +9,13 @@ import matplotlib.pyplot as plt
 import random
 import math
 
+# find the percentage of win and lose
 def find_percentage(num, lst):
     count = lst.count(num)
     percentage = count / len(lst) * 100
     return percentage
 
-
+#play a single game and return the score
 def single(player, num : int = -1):
     count = 6
     simulation = []
@@ -32,6 +33,7 @@ def single(player, num : int = -1):
         simulation = []
     return person1.score()
 
+# play a single game for strategy4 with the given low and high threshold value
 def single2(player, num, low, high):
     count = 6
     simulation = []
@@ -47,7 +49,7 @@ def single2(player, num, low, high):
     return person1.score()
 
 
-
+# compare two players' score and return 0 when they tie, return 1 when play1 win, return 2 when player2 win
 def compare(player1, player2):
     score1 = single(player1)
     # print(person1._keep)
@@ -64,7 +66,7 @@ def compare(player1, player2):
     else:
         return 1
 
-
+# compare player and player2 when player2 is strategy4 and given low and high threshold values.
 def compare2(player1, player2, low, high):
     score1 = single(player1)
     score2 = single2(player2, score1, low, high)
@@ -76,7 +78,7 @@ def compare2(player1, player2, low, high):
     else:
         return 1
 
-
+# calculate the win probability of player1 and player2
 def probability(num, player1, player2):
     l = []
     for i in range(num):
@@ -86,7 +88,7 @@ def probability(num, player1, player2):
 
 
 
-
+# calculate the range of input list
 def find_range(input):
     return (min(input), max(input))
 
@@ -94,7 +96,7 @@ def find_range(input):
 
 
 
-
+# plot the distribution using given list number
 def plot_distribution(lst, title):
     freq_dict = {}
     for i in lst:
@@ -114,6 +116,7 @@ def plot_distribution(lst, title):
     plt.show()
 
 
+# plot the convergence plot
 def plot_multiple_lines(lists):
     x = range(len(lists[0]))
     for i, lst in enumerate(lists):
