@@ -1,3 +1,4 @@
+# it's a method to play the midnight game
 import random
 print("start game")
 
