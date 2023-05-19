@@ -1,5 +1,9 @@
 from Strategy_3 import Strategy3
+# Strategy4 is a player2 strategy and will deal with 3 cases of player1's score.
 class Strategy4:
+    # initialize the strategy4 and defined sel._keep to record keeped number, self._turns to record the turns
+    # defined the self._score_compare to record the player1's score. If player1's score is between 16(exclusive) and 20(inclusive)
+    # it will use strategy4
     def __init__(self, score:int = 20) -> None:
         if score > 16 and score <= 20:
             self._strategy = Strategy3()
@@ -11,13 +15,15 @@ class Strategy4:
             self._score_compare = score
             self._turns = 0
     
+    # find max number of input list
     def find_max(self,lst):
         max_value = lst[0]
         for i in range(1, len(lst)):
             if lst[i] > max_value:
                 max_value = lst[i]
         return max_value
-        
+    
+    #choosing number when player1's score is less or equal to 16
     def below16(self, input):
         add = len(self._keep)
         if 1 in input:
@@ -38,10 +44,12 @@ class Strategy4:
         if add == len(self._keep):
             max = self.find_max(input)
             self._keep.append(max)
-
+            
+    #choosing number when player's score is between 16(exclusive) and 20(inclusive)
     def above16(self, input):
         self._strategy.choose(input)
     
+    #choosing number when player's score is above 20(inclusive)
     def above20(self, input):
         add = len(self._keep)
         if self._turns == 1 or self._turns == 2 or self._turns == 3:
@@ -92,7 +100,7 @@ class Strategy4:
                 max = self.find_max(input)
                 self._keep.append(max)
                 
-        
+    #the main choosing method according to player1's score
     def choose(self, input):
         self._turns += 1
         if self._score_compare <= 16:
@@ -102,7 +110,7 @@ class Strategy4:
         else:
             self.above20(input)
 
-
+    # find the final score
     def score(self):
         score = 0
         if 1 not in self._keep or 4 not in self._keep:
