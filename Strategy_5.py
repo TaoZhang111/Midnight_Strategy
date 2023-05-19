@@ -1,4 +1,3 @@
-# Sategy 5: if opponent get 18 score, play safe.
 
 import random
 class Strategy5: 
@@ -7,48 +6,48 @@ class Strategy5:
         self._keep = []
         self._target_score = score
 
+    # choose all the dice we want
     def choose(self, input):
-        self.play_risk(input)
+         have_pick = False
         
-    # get 1 and 4 first
-                    
-    def play_risk(self, input):
-        have_pick = False
-        
+        # check the max dice available
         while(len(input) > 0):
             curr_max = max(input)
-
+            
+            # if all 6, 1, and 4 are presented and we need, we pick all of them.
             while 6 in input:
                 if 4 not in self._keep and 4 in input:
                     self._keep.append(4)
                     have_pick = True
-                    input.remove(4)
-                    # print('add 4')
+                    input.remove(4)              
                         
                 if 1 not in self._keep and 1 in input:
                     self._keep.append(1)
                     have_pick = True
                     input.remove(1)
-                    # print('add 1')
+                   
                 self._keep.append(6)
                 have_pick = True
                 input.remove(6)
+                # if we've pick too many 6 but not 4 and 1 yet when we have 3 dice, we 
+                # stop picking 6 more. 
                 if len(self._keep) > 3 and ((4 or 1) not in self._keep):
                     break
-                # print('add some 6') 
-            
+            # check if need 4
             if 4 not in self._keep and 4 in input:
                 self._keep.append(4)
                 have_pick = True
                 input.remove(4)
                 # print('add 4')
-                        
+            
+            # check if need 1
             if 1 not in self._keep and 1 in input:
                 self._keep.append(1)
                 have_pick = True
                 input.remove(1)
                 # print('add 1')
             
+            # check if what we get is already larger than the target score. 
             if (4 and 1 in self._keep) and (self.score()+sum(input)> self._target_score):
                 for num in input:
                     self._keep.append(num)
