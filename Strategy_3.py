@@ -1,8 +1,11 @@
+# strategy3 usually using turns to keep the number.
 class Strategy3:
+    #intital the strategy3 and defind keeped number and turns.
     def __init__(self):
         self._keep = []
         self._turns = 0
     
+    # find the max number of the input list
     def find_max(self,lst):
         max_value = lst[0]
         for i in range(1, len(lst)):
@@ -10,6 +13,7 @@ class Strategy3:
                 max_value = lst[i]
         return max_value
     
+    # a mathod to keep 5 and 6 to make the first two keeped number to be one 5 or two 6
     def keep5_6(self, input, num):
         if 6 in input:
             count = input.count(6)
@@ -23,6 +27,7 @@ class Strategy3:
             return True
         return False
     
+    # first 2 turns choosing. 
     def turn1_2(self, input):
         if self._turns == 1:
             if self.keep5_6(input, 2):
@@ -41,7 +46,7 @@ class Strategy3:
         self._keep.append(max)
         return self._keep
             
-    
+    # third turn choosing.
     def turn3(self, input):
         if 4 in self._keep and 1 in self._keep:
             if self.keep5_6(input, 4):
@@ -78,7 +83,7 @@ class Strategy3:
                 max = self.find_max(input)
                 self._keep.append(max)
     
-    
+    # The fourth and fifth turns choosing
     def turn4_5(self, input):
         if 4 in self._keep and 1 in self._keep:
             if self.keep5_6(input, 4):
@@ -99,7 +104,7 @@ class Strategy3:
                 self._keep.append(max)
             return self._keep
     
-        
+    # the main choosing method
     def choose(self, input):
         self._turns = len(self._keep)+1
         if self._turns == 1 or self._turns == 2:
@@ -110,7 +115,7 @@ class Strategy3:
             self.turn4_5(input)
         return self._keep
 
-
+    # get the final score in the game
     def score(self):
         score = 0
         if 1 not in self._keep or 4 not in self._keep:
