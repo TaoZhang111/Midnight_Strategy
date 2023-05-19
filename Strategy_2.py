@@ -1,7 +1,11 @@
+# create the strategy2
 class Strategy2:
+    
+    # initialized the keeped number
     def __init__(self) -> None:
         self._keep = []
     
+    # find the max number of input list
     def find_max(self,lst):
         max_value = lst[0]
         for i in range(1, len(lst)):
@@ -9,6 +13,7 @@ class Strategy2:
                 max_value = lst[i]
         return max_value
     
+    # absorb 6 according to the case in the keep num from input list
     def absorb6(self,list1):
         count = list1.count(6)
         new_items = [6] * count
@@ -16,7 +21,7 @@ class Strategy2:
             new_items = new_items[:6-len(self._keep)]
         self._keep.extend(new_items)
 
-
+    # absorb one 5 in input list
     def absorb5(self, list1):
         count = list1.count(5)
         new_items = [5] * count
@@ -24,7 +29,7 @@ class Strategy2:
             new_items = new_items[:6-len(self._keep)]
         self._keep.extend(new_items)
 
-    
+    #choosing the number from input list
     def choose(self, input):
         count = len(self._keep)
         if len(self._keep) < 6:
@@ -47,7 +52,8 @@ class Strategy2:
             max = self.find_max(input)
             self._keep.append(max)
         return self._keep
-
+    
+    # get the final score
     def score(self):
         score = 0
         if 1 not in self._keep or 4 not in self._keep:
