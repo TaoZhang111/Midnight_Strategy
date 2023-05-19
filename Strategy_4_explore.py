@@ -1,5 +1,8 @@
 from Strategy_3 import Strategy3
+#explore the strategy4 from changing the low and high threshold
 class Strategy4_explore:
+    # initial the strategy4_explore and seting the self._keep as keeped number, self._turns as the turns round
+    # setting the self._low and self._high as low and high threshold.
     def __init__(self, score, low, high) -> None:
         self._low = low
         self._high = high
@@ -13,13 +16,15 @@ class Strategy4_explore:
             self._score_compare = score
             self._turns = 0
     
+    # find the max number of input list
     def find_max(self,lst):
         max_value = lst[0]
         for i in range(1, len(lst)):
             if lst[i] > max_value:
                 max_value = lst[i]
         return max_value
-        
+    
+    # choosing the number when player1's score less and equal to self._low
     def below16(self, input):
         add = len(self._keep)
         if 1 in input:
@@ -40,10 +45,12 @@ class Strategy4_explore:
         if add == len(self._keep):
             max = self.find_max(input)
             self._keep.append(max)
-
+            
+    # choosing the number when player1's score bigger than self._low and less or equal to self._high
     def above16(self, input):
         self._strategy.choose(input)
     
+    # choosing the number when player1's score bigger than self._high
     def above20(self, input):
         add = len(self._keep)
         if self._turns == 1 or self._turns == 2 or self._turns == 3:
@@ -94,7 +101,7 @@ class Strategy4_explore:
                 max = self.find_max(input)
                 self._keep.append(max)
                 
-        
+    # the main choosing method
     def choose(self, input):
         self._turns += 1
         if self._score_compare <= self._low:
@@ -104,7 +111,7 @@ class Strategy4_explore:
         else:
             self.above20(input)
 
-
+    # get the final score
     def score(self):
         score = 0
         if 1 not in self._keep or 4 not in self._keep:
