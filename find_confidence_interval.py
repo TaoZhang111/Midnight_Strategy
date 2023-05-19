@@ -1,3 +1,4 @@
+# find the highest confidence interval
 def find_highest_interval(intervals):
     highest_interval = None
     highest_overlap_intervals = []
